@@ -39,7 +39,7 @@ This project parses `.log` or `.json` files, detects error spikes, and visualize
 
 ## 🖼️ Architecture
 
-![Architecture](./assets/architecture.png)
+![Architecture](image.png)
 
 1. **User uploads** `.log`/`.json` files via Streamlit UI  
 2. File is parsed using custom `parser.py`  
