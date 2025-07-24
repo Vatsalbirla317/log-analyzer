@@ -71,7 +71,7 @@ else:
 
     # 🔔 Send Slack alert
     services = anomalies['service'].tolist()
-    webhook_url = "https://hooks.slack.com/services/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"
+    webhook_url = st.secrets["slack"]["webhook"]
     success = send_slack_alert(services, webhook_url)
 
     if success:
