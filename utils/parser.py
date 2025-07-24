@@ -6,7 +6,7 @@ from datetime import datetime
 def parse_log_file(filepath):
     try:
         if filepath.endswith(".json"):
-            with open(filepath, "r") as f:
+            with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
                 data = json.load(f)
             if isinstance(data, list) and all(isinstance(item, dict) for item in data):
                 df = pd.DataFrame(data)
@@ -25,9 +25,12 @@ def parse_log_file(filepath):
                 r'^(\w+)\s+(INFO|ERROR|WARNING|DEBUG)\s+(.+)$',                                        # service level msg (no timestamp)
             ]
 
-            with open(filepath, "r") as f:
-                for line in f:
+            with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
+                for i, line in enumerate(f, 1):
                     line = line.strip()
+                    if len(line) > 5000:
+                        continue  # skip unusually long lines
+
                     matched = False
 
                     for pattern in patterns:
@@ -54,6 +57,8 @@ def parse_log_file(filepath):
 
                     if not matched:
                         skipped += 1
+                        if skipped <= 10:
+                            print(f"[Warning] Line {i} didn't match any known format:\n{line[:120]}")
 
             print(f"[Parser] Parsed {len(log_entries)} entries | Skipped {skipped} lines")
             df = pd.DataFrame(log_entries)
