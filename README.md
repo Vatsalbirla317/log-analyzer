@@ -1,4 +1,4 @@
-# 📊 Log Analyzer Dashboard
+# 📊 Log Analyzer 
 
 A smart log monitoring and anomaly detection tool built with **Streamlit**, **SQLite**, and **Machine Learning**.
 
