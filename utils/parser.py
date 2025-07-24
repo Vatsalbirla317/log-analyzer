@@ -8,17 +8,15 @@ def parse_log_file(filepath):
             with open(filepath, "r") as f:
                 data = json.load(f)
 
-            # Ensure it's a list of dicts
             if isinstance(data, list) and all(isinstance(item, dict) for item in data):
                 df = pd.DataFrame(data)
             else:
                 print("[Parser Error] JSON file must contain a list of log entries")
                 return pd.DataFrame(columns=["timestamp", "service", "level", "message"])
 
-        else:  # Assume .log format
+        else:  # .log files
             log_entries = []
             pattern = r'^(INFO|ERROR|WARNING)\s+([^\s]+)\s+([^\s]+)\s+(.+)$'
-
             with open(filepath, "r") as f:
                 for line in f:
                     match = re.match(pattern, line.strip())
@@ -30,10 +28,8 @@ def parse_log_file(filepath):
                             "level": level,
                             "message": message
                         })
-
             df = pd.DataFrame(log_entries)
 
-        # Final safety check
         required_cols = {"timestamp", "service", "level", "message"}
         if not required_cols.issubset(set(df.columns)):
             print("[Parser Error] Missing required columns")

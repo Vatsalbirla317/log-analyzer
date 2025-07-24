@@ -24,9 +24,11 @@ uploaded_file = st.file_uploader("Upload a log file (.log or .json)", type=["log
 
 if uploaded_file:
     content = uploaded_file.read().decode("utf-8")
-    with open("logs/temp_uploaded.log", "w") as f:
+    extension = uploaded_file.name.split('.')[-1]
+    temp_path = f"logs/temp_uploaded.{extension}"
+    with open(temp_path, "w") as f:
         f.write(content)
-    df = parse_log_file("logs/temp_uploaded.log")
+    df = parse_log_file(temp_path)
     st.success("✅ File uploaded and parsed successfully!")
 else:
     df = parse_log_file("logs/sample1.log")  # fallback file
