@@ -16,7 +16,7 @@ A smart log monitoring tool built with **Streamlit**, **SQLite**, and **Machine 
 - Streamlit (Frontend & dashboard)
 - SQLite (Temporary DB)
 
-## 📍 [Live Demo](https://your-app-name.streamlit.app)
+## 📍 [Live Demo](https://log-analyzer-dwye9xy4pwgfhlqrzgsxvh.streamlit.app/)
 
 ## 🖼️ Architecture
 ![architecture.png](./assets/architecture.png)
