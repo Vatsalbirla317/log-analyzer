@@ -1,0 +1,26 @@
+[
+  {
+    "timestamp": "2025-07-24T10:10:00",
+    "service": "auth",
+    "level": "INFO",
+    "message": "Login successful"
+  },
+  {
+    "timestamp": "2025-07-24T10:10:30",
+    "service": "auth",
+    "level": "ERROR",
+    "message": "Invalid token"
+  },
+  {
+    "timestamp": "2025-07-24T10:11:00",
+    "service": "billing",
+    "level": "WARNING",
+    "message": "Payment gateway timeout"
+  },
+  {
+    "timestamp": "2025-07-24T10:11:30",
+    "service": "billing",
+    "level": "INFO",
+    "message": "Retry initiated"
+  }
+]

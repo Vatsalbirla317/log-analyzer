@@ -6,15 +6,17 @@ st.set_page_config(page_title="Log Analyzer", layout="wide")
 import pandas as pd
 from utils.parser import parse_log_file
 from utils.anomaly import detect_anomalies
-from utils.storage import init_db, save_logs  # updated here
+from utils.storage import init_db, save_logs
+from utils.slack_alert import send_slack_alert  # 🔔 Slack integration
 from streamlit_autorefresh import st_autorefresh
-
-init_db()  # ⬅️ added this to ensure table is created
-
 
 # 🔁 Auto-refresh every 10 seconds
 st_autorefresh(interval=10_000, limit=None, key="refresh")
 
+# 🔧 Initialize DB
+init_db()
+
+# 🏷️ App Title
 st.title("📊 Log Analyzer Dashboard")
 
 # --- Upload log file ---
@@ -27,7 +29,8 @@ if uploaded_file:
     df = parse_log_file("logs/temp_uploaded.log")
     st.success("✅ File uploaded and parsed successfully!")
 else:
-    df = parse_log_file("logs/sample1.log")
+    df = parse_log_file("logs/sample2.json")  # fallback file
+    st.success("✅ Sample file parsed successfully!")
 
 # --- Filter logs ---
 st.subheader("🔍 Filter Logs")
@@ -62,9 +65,17 @@ else:
     st.error("Anomalies found!")
     st.dataframe(anomalies)
 
-    # Simulated alert
     st.warning("📢 Alert: Spike in anomalies detected!")
-    print("⚠️ SLACK ALERT: Spike detected in services:", anomalies['service'].tolist())
+
+    # 🔔 Send Slack alert
+    services = anomalies['service'].tolist()
+    webhook_url = "https://hooks.slack.com/services/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"
+    success = send_slack_alert(services, webhook_url)
+
+    if success:
+        st.info("✅ Slack alert sent successfully!")
+    else:
+        st.error("⚠️ Failed to send Slack alert.")
 
 # --- Error chart ---
 st.subheader("📈 Error Count by Service")

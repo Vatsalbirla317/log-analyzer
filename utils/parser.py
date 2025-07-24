@@ -1,22 +1,29 @@
-import re
+import json
 import pandas as pd
 
 def parse_log_file(filepath):
-    logs = []
-    pattern = r'(\w+)\s+(\d{4}-\d{2}-\d{2}T[\d:]+Z)\s+(\w+)\s+(.*)'
+    try:
+        if filepath.endswith(".json"):
+            with open(filepath, "r") as f:
+                data = json.load(f)
+            df = pd.DataFrame(data)
+        else:
+            df = pd.read_csv(
+                filepath,
+                sep=" - ",
+                header=None,
+                names=["timestamp", "service", "level", "message"],
+                engine="python"
+            )
 
-    with open(filepath, 'r') as file:
-        for line in file:
-            match = re.match(pattern, line)
-            if match:
-                level, timestamp, service, message = match.groups()
-                logs.append({
-                    "timestamp": timestamp,
-                    "level": level,
-                    "service": service,
-                    "message": message
-                })
-    
-    df = pd.DataFrame(logs)
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
-    return df
+        # Defensive check
+        required_cols = {"timestamp", "service", "level", "message"}
+        if not required_cols.issubset(set(df.columns)):
+            return pd.DataFrame(columns=list(required_cols))
+
+        df["timestamp"] = pd.to_datetime(df["timestamp"])
+        return df
+
+    except Exception as e:
+        print(f"[Parser Error] {e}")
+        return pd.DataFrame(columns=["timestamp", "service", "level", "message"])
