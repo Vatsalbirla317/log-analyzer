@@ -1,0 +1,14 @@
+INFO 2025-07-24T08:01:00Z AuthService Login successful
+INFO 2025-07-24T08:01:02Z AuthService Token generated
+ERROR 2025-07-24T08:01:05Z AuthService Invalid password
+INFO 2025-07-24T08:01:10Z AuthService Logout
+ERROR 2025-07-24T08:01:20Z AuthService Token expired
+
+INFO 2025-07-24T08:01:00Z OrderService Order placed
+INFO 2025-07-24T08:01:05Z OrderService Payment processed
+INFO 2025-07-24T08:01:10Z OrderService Order confirmed
+
+INFO 2025-07-24T08:01:00Z NotificationService Email sent
+ERROR 2025-07-24T08:01:01Z NotificationService Email failed
+ERROR 2025-07-24T08:01:02Z NotificationService SMS failed
+ERROR 2025-07-24T08:01:03Z NotificationService Push failed
