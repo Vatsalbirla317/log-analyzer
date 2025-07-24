@@ -29,7 +29,7 @@ if uploaded_file:
     df = parse_log_file("logs/temp_uploaded.log")
     st.success("✅ File uploaded and parsed successfully!")
 else:
-    df = parse_log_file("logs/sample2.json")  # fallback file
+    df = parse_log_file("logs/sample1.log")  # fallback file
     st.success("✅ Sample file parsed successfully!")
 
 # --- Filter logs ---
