@@ -20,13 +20,14 @@ This project parses `.log` or `.json` files, detects error spikes, and visualize
 
 ## 🚀 Tech Stack
 
-| Layer            | Tools Used                         |
-|------------------|-------------------------------------|
-| Programming      | Python, Pandas                     |
-| Machine Learning | Scikit-learn (Isolation Forest)    |
-| Dashboard        | Streamlit                          |
-| Backend Storage  | SQLite                             |
-| Deployment       | Streamlit Cloud                    |
+<p align="left">
+  <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white" />
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white" />
+  <img src="https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white" />
+  <img src="https://img.shields.io/badge/Scikit--learn-F7931E?style=flat&logo=scikit-learn&logoColor=white" />
+  <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" />
+</p>
 
 ---
 
